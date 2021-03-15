@@ -1,0 +1,27 @@
+polygons:
+  url: https://gist.githubusercontent.com/codeofsumit/6540cdb245bd14c33b486b7981981b7b/raw/73ebda86c32923e203b2a8e61615da3e5f1695a2/polygons.json
+
+vehicles:
+  url: ${test:http://localhost:3000/vehicles/Stuttgart}
+
+spring:
+  data:
+    mongodb:
+      database: car
+      uri: mongodb://192.168.2.73:27017
+  kafka:
+    template:
+      default-topic: vehicle-position-events
+    consumer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: vehicle-events-listener-group
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+

@@ -75,6 +75,9 @@ services:
       ADVERTISED_PORT: 27017
     ports:
       - "27017:27017"
+    networks:
+      - kafka-net
+
 
   car-position-server:
     image: car2godeveloper/api-for-coding-challenge:latest
@@ -114,3 +117,13 @@ services:
     environment:
       - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
       - CAR-POSITION-SERVER=car-position-server:3000
+
+  car-webServices:
+    image: "car-webservices"
+    networks:
+      - kafka-net
+    ports:
+      - "8083:8083"
+    depends_on:
+      - car-position-consumer
+      - docker-mongodb

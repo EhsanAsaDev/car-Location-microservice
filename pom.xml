@@ -11,6 +11,7 @@
     <modules>
         <module>car-position-consumer</module>
         <module>car-position-producer</module>
+        <module>car-webservices</module>
     </modules>
 
 </project>

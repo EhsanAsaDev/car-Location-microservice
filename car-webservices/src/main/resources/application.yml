@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      database: car
+      uri: ${DATABASE_URI:mongodb://localhost:27017}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      show-components: always

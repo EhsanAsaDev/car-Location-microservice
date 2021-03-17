@@ -1,4 +1,4 @@
-package com.sn.challenge.controller;
+package com.sn.challenge.service;
 
 import com.sn.challenge.model.Vehicle;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
  */
 
 @Slf4j
-public class VehicleEventListenableFutureCallback  implements ListenableFutureCallback<SendResult<String, Vehicle>> {
+public class VehicleEventListenableFutureCallback implements ListenableFutureCallback<SendResult<String, Vehicle>> {
     private final String key;
     private final Vehicle value;
 

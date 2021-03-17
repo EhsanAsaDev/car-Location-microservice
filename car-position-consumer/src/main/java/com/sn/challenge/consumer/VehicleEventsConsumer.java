@@ -1,4 +1,4 @@
-package com.sn.challenge.controller;
+package com.sn.challenge.consumer;
 
 import com.sn.challenge.model.Vehicle;
 import com.sn.challenge.service.VehicleEventService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class CarPositionEventsConsumer {
+public class VehicleEventsConsumer {
 
 
     @Autowired
@@ -23,7 +23,7 @@ public class CarPositionEventsConsumer {
     @KafkaListener(topics = {"vehicle-position-events"})
     public void onMessage(ConsumerRecord<String, Vehicle> consumerRecord) {
         log.info("ConsumerRecord : {} ", consumerRecord );
-        vehicleEventService.processCarEvent(consumerRecord);
+        vehicleEventService.processVehicleEvent(consumerRecord);
 
     }
 }

@@ -12,6 +12,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Vehicle {
     private Long id;
     @Id

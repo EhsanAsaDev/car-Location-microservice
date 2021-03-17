@@ -1,6 +1,5 @@
-package com.sn.challenge.controller;
+package com.sn.challenge.consumer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sn.challenge.model.Vehicle;
 import lombok.extern.slf4j.Slf4j;
@@ -20,21 +19,20 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class VehicleEventController {
+public class VehicleEventProducer {
 
     private final String topic = "vehicle-position-events";
     private final KafkaTemplate<String,Vehicle> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
-    public VehicleEventController(KafkaTemplate<String, Vehicle> kafkaTemplate, ObjectMapper objectMapper) {
+    public VehicleEventProducer(KafkaTemplate<String, Vehicle> kafkaTemplate, ObjectMapper objectMapper) {
         this.kafkaTemplate = kafkaTemplate;
         this.objectMapper = objectMapper;
     }
 
-    public ListenableFuture<SendResult<String,Vehicle>> sentVehicleEvents(Vehicle vehicle) {
+    public ListenableFuture<SendResult<String,Vehicle>> sendVehicleEvents(Vehicle vehicle) {
 
         String key = vehicle.getVin();
-        //String value = objectMapper.writeValueAsString(VehicleEvent);
 
         ProducerRecord<String,Vehicle> producerRecord = buildProducerRecord(key, vehicle, topic);
 

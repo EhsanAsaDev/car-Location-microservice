@@ -25,7 +25,7 @@ public class VehiclesService {
     public Vehicle[] getVehicleInfo(){
 
         ResponseEntity<Vehicle[]> responseEntity = restTemplate.getForEntity(
-                vehicleUrl, Vehicle[].class);
+                vehicleUrl+"/vehicles/Stuttgart", Vehicle[].class);
 
         return responseEntity.getBody();
     }

@@ -1,9 +1,6 @@
 package com.sn.challenge.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @author Ehsan Sh
@@ -13,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Vehicle {
     public Integer id;
     public int locationId;

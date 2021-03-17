@@ -1,3 +1,4 @@
+version: '3'
 
 networks:
   kafka-net:
@@ -21,34 +22,49 @@ services:
       - kafka-net
     ports:
       - '9092:9092'
+      - '29092:29092'
     environment:
+      - KAFKA_BROKER_ID:1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
       - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-server1:9092,PLAINTEXT_HOST://kafka-server1:29092
     depends_on:
       - zookeeper-server
+
   kafka-server2:
     image: 'bitnami/kafka:latest'
     networks:
       - kafka-net
     ports:
-      - '9093:9093'
+      - '9093:9092'
+      - '29093:29093'
     environment:
+      - KAFKA_BROKER_ID:2
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093
       - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9093,PLAINTEXT_HOST://:29093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-server2:9093,PLAINTEXT_HOST://kafka-server2:29093
     depends_on:
       - zookeeper-server
+
+
   kafka-server3:
     image: 'bitnami/kafka:latest'
     networks:
       - kafka-net
     ports:
-      - '9094:9094'
+      - '9094:9092'
+      - '29094:29094'
     environment:
+      - KAFKA_BROKER_ID:3
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9094
       - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9094,PLAINTEXT_HOST://:29094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-server3:9094,PLAINTEXT_HOST://kafka-server3:29094
     depends_on:
       - zookeeper-server
 
@@ -60,21 +76,41 @@ services:
     ports:
       - "27017:27017"
 
+  car-position-server:
+    image: car2godeveloper/api-for-coding-challenge:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - kafka-net
+
 
   car-position-producer:
     image: "car-position-producer"
     ports:
       - "8081:8081"
+    networks:
+      - kafka-net
     depends_on:
       - kafka-server1
       - kafka-server2
       - kafka-server3
+      - car-position-server
+    environment:
+      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
+      - CAR-POSITION-SERVER=http://car-position-server:3000
 
   car-position-consumer:
     image: "car-position-consumer"
     ports:
       - "8082:8082"
+    networks:
+      - kafka-net
     depends_on:
       - kafka-server1
       - kafka-server2
       - kafka-server3
+      - car-position-producer
+      - docker-mongodb
+    environment:
+      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
+      - CAR-POSITION-SERVER=car-position-server:3000

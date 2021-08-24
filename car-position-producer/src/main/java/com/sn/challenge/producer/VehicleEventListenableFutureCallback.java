@@ -1,4 +1,4 @@
-package com.sn.challenge.consumer;
+package com.sn.challenge.producer;
 
 import com.sn.challenge.model.Vehicle;
 import lombok.extern.slf4j.Slf4j;

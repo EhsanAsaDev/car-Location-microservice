@@ -1,6 +1,6 @@
 package com.sn.challenge.scheduler;
 
-import com.sn.challenge.consumer.VehicleEventProducer;
+import com.sn.challenge.producer.VehicleEventProducer;
 import com.sn.challenge.model.Vehicle;
 import com.sn.challenge.service.VehiclesService;
 import lombok.AllArgsConstructor;

@@ -20,6 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
@@ -50,6 +52,7 @@ import static org.mockito.Mockito.*;
 @EmbeddedKafka(topics = {"vehicle-position-events"}, partitions = 3)
 @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}"
         , "spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}"})
+@AutoConfigureDataMongo
 public class VehicleEventsConsumerIntegrationTest {
     @Autowired
     EmbeddedKafkaBroker embeddedKafkaBroker;

@@ -118,38 +118,38 @@ services:
       - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
       - CAR-POSITION-SERVER=car-position-server:3000
 
-#
-#  car-position-consumer2:
-#    image: "car-position-consumer"
-#    ports:
-#      - "8084:8084"
-#    networks:
-#      - kafka-net
-#    depends_on:
-#      - kafka-server1
-#      - kafka-server2
-#      - kafka-server3
-#      - car-position-producer
-#      - docker-mongodb
-#    environment:
-#      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
-#      - CAR-POSITION-SERVER=car-position-server:3000
-#
-#  car-position-consumer3:
-#    image: "car-position-consumer"
-#    ports:
-#      - "8085:8085"
-#    networks:
-#      - kafka-net
-#    depends_on:
-#      - kafka-server1
-#      - kafka-server2
-#      - kafka-server3
-#      - car-position-producer
-#      - docker-mongodb
-#    environment:
-#      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
-#      - CAR-POSITION-SERVER=car-position-server:3000
+
+  car-position-consumer2:
+    image: "car-position-consumer"
+    ports:
+      - "8084:8084"
+    networks:
+      - kafka-net
+    depends_on:
+      - kafka-server1
+      - kafka-server2
+      - kafka-server3
+      - car-position-producer
+      - docker-mongodb
+    environment:
+      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
+      - CAR-POSITION-SERVER=car-position-server:3000
+
+  car-position-consumer3:
+    image: "car-position-consumer"
+    ports:
+      - "8085:8085"
+    networks:
+      - kafka-net
+    depends_on:
+      - kafka-server1
+      - kafka-server2
+      - kafka-server3
+      - car-position-producer
+      - docker-mongodb
+    environment:
+      - KAFKA_SERVERS=kafka-server1:29092, kafka-server2:29093, kafka-server3:29094
+      - CAR-POSITION-SERVER=car-position-server:3000
 
 
   car-webServices:

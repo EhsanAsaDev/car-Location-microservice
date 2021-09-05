@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FetchVehiclesPosition {
     private final VehiclesService vehiclesService;
-    private final VehicleEventProducer vehicleEventController;
+    private final VehicleEventProducer vehicleEventProducer;
 
 
     @Scheduled(fixedDelay =30000 )
@@ -26,7 +26,7 @@ public class FetchVehiclesPosition {
         Vehicle[] vehicles = vehiclesService.getVehicleInfo();
         for (Vehicle vehicle : vehicles){
             log.info("Vehicle with vim:{} sent as event",vehicle.getVin());
-            vehicleEventController.sendVehicleEvents(vehicle);
+            vehicleEventProducer.sendVehicleEvents(vehicle);
         }
         return vehicles;
     }

@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EmbeddedKafka(topics = {"vehicle-position-events"}, partitions = 1)
+@EmbeddedKafka(topics = {"vehicle-position-events"}, partitions = 3)
 @TestPropertySource(properties = { "spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
         "spring.kafka.admin.properties.bootstrap.servers=${spring.embedded.kafka.brokers}"})
 class CarPositionProducerApplicationTests {
@@ -54,14 +54,14 @@ class CarPositionProducerApplicationTests {
         consumer.close();
     }
 
-    //@Test
+    @Test
     //@Timeout(15)
     //Todo
     void postVehicleEvent() throws InterruptedException {
 
         //when
         Vehicle[] vehicles = fetchVehiclesPosition.fetchCarData();
-        Thread.sleep(10000);
+        Thread.sleep(30000);
 
         //then
         ConsumerRecords<String, Vehicle> consumerRecords  = KafkaTestUtils.getRecords(consumer);

@@ -1,12 +1,14 @@
+
+[Architecture Model](/car_position_diagram.png)
+
 Car Location Implementation based on Microservices Architecture
 ---
 
 The complete walk-through tutorial about this implementation, I've published blog post here:
 
-[Car Location Implementation based on Microservices Architecture](https://ehsanasadev.github.io/)
+[Car Location Implementation based on Microservices Architecture](https://ehsanasadev.github.io/How_to_use_Spring_and_Kafka_to_build_a_project_based_on_microservices_architecture/)
 
-The goal is to build a microservice which calculates the position of vehicles
-inside strategic geojson-polygons and serve the cars and polygons via a REST API
+The goal is to calculate the position of vehicles inside strategic geojson-polygons and serve the cars and polygons via a REST API
 mostly for demonstration purposes!
 
 The implementation consists of Three microservices implemented in Java using Spring Boot and Spring Cloud:
@@ -50,6 +52,7 @@ Then,  I provided a docker file for each microservice, so you should create an i
 
 
 Finally, by the docker-compose file, you can launch it.
+
 //docker-compose up
 
 

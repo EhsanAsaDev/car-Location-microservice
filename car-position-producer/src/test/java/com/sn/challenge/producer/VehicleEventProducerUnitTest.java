@@ -40,7 +40,7 @@ public class VehicleEventProducerUnitTest {
     VehicleEventProducer vehicleEventProducer;
 
     @Test
-    void sendVehicleEvent_failure() throws JsonProcessingException, ExecutionException, InterruptedException {
+    void sendVehicleEvent_failure() {
         //given
         Vehicle vehicle = Vehicle.builder()
                 .id(1)
